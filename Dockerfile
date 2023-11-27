@@ -7,11 +7,11 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Build the Go app
-RUN go build -o main .
+# update sh file
+RUN mv start.sh.sample start.sh
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
 # Command to run the executable
-CMD ["./main"]
+CMD ["sh", "start.sh"]
