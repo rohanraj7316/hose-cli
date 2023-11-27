@@ -1,20 +1,17 @@
-# RSRC-BP
+# Project Title
 
-## File Structure
+url shortener it helps to shorten any given url
 
-#### Top-level Direction
+## Getting Started
 
-* [configs/](config/) - contains all the configs. you should use ** singleton pattern ** while loading it inside the env.
-preferred way to load it inside the router.
+below are the steps to make your project up and running
 
-* [api/resources](api/resources) - 
+1. `mv start.sh.sample start.sh`
 
-* [api/routes](api/routes) - 
+2. `go download`
 
-## Run
+3. `sh start.sh`
 
-rename **start.sh.sample** to **start.sh** using the below command
+### Prerequisites
 
-`cp start.sh.sample start.sh`
-
-`sh start.sh`
+you need `go 1.18+`
