@@ -18,14 +18,6 @@ import (
 )
 
 func main() {
-
-	os.Setenv("MODULE_NAME", "crypto")
-	os.Setenv("PRODUCT_NAME", "hose")
-	os.Setenv("WAIT_TIME_BEFORE_KILL", "60s")
-	os.Setenv("PORT", "8080")
-	os.Setenv("ALLOW_CORS_METHODS", "GET,POST")
-	os.Setenv("ALLOW_CORS_ORIGIN", "*")
-
 	// can be used to terminate the server using done
 	pCtx := context.Background()
 	ctx, cancel := context.WithCancel(pCtx)
