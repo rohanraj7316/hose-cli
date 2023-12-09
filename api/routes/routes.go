@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
+	cr "github.com/rohanraj7316/hose/api/resources/crypto"
+	"github.com/rohanraj7316/hose/api/resources/health"
+	"github.com/rohanraj7316/hose/configs"
 	"github.com/rohanraj7316/middleware/libs/response"
-	"github.com/rohanraj7316/rsrc-bp-testing/api/resources/health"
-	"github.com/rohanraj7316/rsrc-bp-testing/api/resources/shorturl"
-	"github.com/rohanraj7316/rsrc-bp-testing/configs"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -40,7 +40,7 @@ func (r *RouteHandler) NewRouter(app *fiber.App) {
 		},
 		{
 			path:   "/",
-			router: shorturl.NewRouter,
+			router: cr.NewRouter,
 		},
 	}
 

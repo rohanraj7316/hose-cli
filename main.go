@@ -9,14 +9,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/rohanraj7316/rsrc-bp-testing/api/routes"
-	"github.com/rohanraj7316/rsrc-bp-testing/configs"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/helmet/v2"
+	"github.com/rohanraj7316/hose/api/routes"
+	"github.com/rohanraj7316/hose/configs"
 	"github.com/rohanraj7316/logger"
-	"github.com/rohanraj7316/middleware"
 )
 
 func main() {
@@ -42,9 +40,6 @@ func main() {
 	// adding middleware
 	app.Use(cors.New(config.CorsConfig))
 	app.Use(helmet.New())
-
-	// initializing middleware
-	app.Use(middleware.New(app))
 
 	// initialize router
 	r, err := routes.NewRouteHandler(app, config)

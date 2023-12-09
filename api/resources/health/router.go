@@ -2,8 +2,8 @@ package health
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/rohanraj7316/hose/configs"
 	"github.com/rohanraj7316/logger"
-	"github.com/rohanraj7316/rsrc-bp-testing/configs"
 )
 
 func NewRouter(a fiber.Router) {
