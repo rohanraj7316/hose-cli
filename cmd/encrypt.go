@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/rohanraj7316/hose/utils/hose"
+	"github.com/rohanraj7316/hose-cli/utils/hose"
 	"github.com/spf13/cobra"
 )
 

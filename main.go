@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/rohanraj7316/hose/cmd"
+	"github.com/rohanraj7316/hose-cli/cmd"
 )
 
 func main() {

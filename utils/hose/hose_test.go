@@ -3,7 +3,7 @@ package hose_test
 import (
 	"testing"
 
-	"github.com/rohanraj7316/hose/utils/hose"
+	"github.com/rohanraj7316/hose-cli/utils/hose"
 )
 
 func Test_Encrypt(t *testing.T) {

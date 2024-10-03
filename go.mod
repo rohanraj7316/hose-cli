@@ -1,4 +1,4 @@
-module github.com/rohanraj7316/hose
+module github.com/rohanraj7316/hose-cli
 
 go 1.21
 

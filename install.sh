@@ -16,8 +16,8 @@ install_cli() {
     fi
 
     # Clone the repository
-    if [ -d "hose" ]; then
-        rm -rf hose
+    if [ -d "hose-cli" ]; then
+        rm -rf hose-cli
     fi
     git clone https://github.com/rohanraj7316/hose-cli.git
 
@@ -25,13 +25,13 @@ install_cli() {
     cd hose-cli || exit
 
     # Build the CLI
-    go build -o hose
+    go build -o hose-cli
 
     # Move the binary to /usr/local/bin
-    sudo mv hose /usr/local/bin/
+    sudo mv hose-cli /usr/local/bin/
 
     # Verify installation
-    if command_exists hose; then
+    if command_exists hose-cli; then
         echo "hose CLI installed successfully!"
     else
         echo "Failed to install hose CLI."
