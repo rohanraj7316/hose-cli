@@ -22,7 +22,7 @@ install_cli() {
     git clone https://github.com/rohanraj7316/hose-cli.git
 
     # Navigate to the project directory
-    cd hose || exit
+    cd hose-cli || exit
 
     # Build the CLI
     go build -o hose
