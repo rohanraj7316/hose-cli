@@ -1,8 +1,0 @@
-export MODULE_NAME=bp
-export PRODUCT_NAME=rsrc-bp
-export WAIT_TIME_BEFORE_KILL=60s
-export PORT=8080
-export ALLOW_CORS_METHODS=GET,POST
-export ALLOW_CORS_ORIGIN=*
-
-go run main.go
