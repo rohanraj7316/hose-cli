@@ -17,6 +17,4 @@
 # Go workspace file
 go.work
 
-*.sh
-
 .DS_Store
