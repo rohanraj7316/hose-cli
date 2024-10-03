@@ -25,13 +25,13 @@ install_cli() {
     cd hose-cli || exit
 
     # Build the CLI
-    go build -o hose-cli
+    go build -o hose
 
     # Move the binary to /usr/local/bin
-    sudo mv hose-cli /usr/local/bin/
+    sudo mv hose /usr/local/bin/
 
     # Verify installation
-    if command_exists hose-cli; then
+    if command_exists hose; then
         echo "hose CLI installed successfully!"
     else
         echo "Failed to install hose CLI."
