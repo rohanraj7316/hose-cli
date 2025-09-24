@@ -4,9 +4,32 @@ Hose CLI is a command-line tool for encrypting and decrypting data. It provides 
 
 ## Installation
 
+Install using curl (recommended):
+
 ```bash
-curl -O https://raw.githubusercontent.com/rohanraj7316/hose-cli/refs/heads/main/install.sh && chmod +x install.sh && ./install.sh
+curl -fsSL https://raw.githubusercontent.com/rohanraj7316/hose-cli/refs/heads/main/install.sh -o install.sh \
+  && chmod +x install.sh \
+  && ./install.sh
 ```
+
+Or using wget:
+
+```bash
+wget -q https://raw.githubusercontent.com/rohanraj7316/hose-cli/refs/heads/main/install.sh -O install.sh \
+  && chmod +x install.sh \
+  && ./install.sh
+```
+
+Optional: choose install directory (defaults to /usr/local/bin or $HOME/.local/bin):
+
+```bash
+HOSE_INSTALL_DIR="$HOME/.local/bin" ./install.sh
+```
+
+Notes:
+- The installer first attempts to download a prebuilt binary for your OS/arch.
+- If no prebuilt is available, it builds from source (requires Git and Go ≥ 1.21).
+- On Linux without sudo, the binary is placed in `$HOME/.local/bin`. Ensure it is on your PATH.
 
 ## Usage
 
@@ -53,6 +76,12 @@ Output:
 {"decrypted_payload":"Rohan Raj"}
 ```
 
+### Version
+
+```bash
+hose version
+```
+
 ## Error Handling
 
 - Ensure all required flags are provided.
@@ -62,3 +91,9 @@ Output:
 
 - Cobra library for command-line interface.
 - JSON library for output formatting.
+
+## Performance notes
+
+- Fast startup: Cobra usage/error printing is silenced for non-verbose runs.
+- Minimal I/O: logs go to stderr with a single-line format; output uses streaming JSON encoder and direct writes to stdout.
+- Flags are localized to subcommands to reduce parsing overhead.

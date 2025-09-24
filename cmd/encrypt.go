@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"encoding/json"
-	"fmt"
+	"io"
+	"os"
 
 	"github.com/rohanraj7316/hose-cli/utils/hose"
 	"github.com/spf13/cobra"
@@ -17,64 +18,60 @@ var encryptionCmd = &cobra.Command{
 	Use:   "encrypt",
 	Short: "Encrypt is a CLI for encrypting the data",
 	Run: func(cmd *cobra.Command, args []string) {
-		payload, err := cmd.Flags().GetString("payload")
+		payload, err := getFlagString(cmd, "payload")
 		if err != nil {
-			fmt.Println("Error getting payload flag:", err)
+			logError("Error getting payload flag", err)
 			return
 		}
 
-		secretKey, err := cmd.Flags().GetString("secret-key")
+		secretKey, err := getFlagString(cmd, "secret-key")
 		if err != nil {
-			fmt.Println("Error getting secret key flag:", err)
+			logError("Error getting secret key flag", err)
 			return
 		}
 
-		publicKey, err := cmd.Flags().GetString("public-key")
+		publicKey, err := getFlagString(cmd, "public-key")
 		if err != nil {
-			fmt.Println("Error getting public key flag:", err)
+			logError("Error getting public key flag", err)
 			return
 		}
 
 		jsonFlag, err := cmd.Flags().GetBool("json")
 		if err != nil {
-			fmt.Println("Error getting json flag:", err)
+			logError("Error getting json flag", err)
 			return
 		}
 
 		apiEncryptionKey, encryptedPayload, err := hose.New().Encrypt(payload, secretKey, publicKey)
 		if err != nil {
-			fmt.Println("Error encrypting payload:", err)
+			logError("Error encrypting payload", err)
 			return
 		}
 
-		if jsonFlag {
-			output := EncryptCmdOutput{
-				ApiEncryptionKey: apiEncryptionKey,
-				EncryptedPayload: encryptedPayload,
-			}
-
-			jsonOutput, err := json.Marshal(output)
-			if err != nil {
-				fmt.Println("Error converting output to JSON:", err)
-				return
-			}
-			fmt.Println(string(jsonOutput))
-		} else {
-			fmt.Println("Encrypted Payload: ", encryptedPayload)
-			fmt.Println("API Encryption Key: ", apiEncryptionKey)
-		}
+		outputResultForEncrypt(apiEncryptionKey, encryptedPayload, jsonFlag)
 	},
 }
 
 func init() {
-	encryptionCmd.PersistentFlags().StringP("payload", "p", "", "payload to encrypt")
-	encryptionCmd.MarkPersistentFlagRequired("payload")
+	encryptionCmd.Flags().StringP("payload", "p", "", "payload to encrypt")
+	encryptionCmd.MarkFlagRequired("payload")
 
-	encryptionCmd.PersistentFlags().StringP("secret-key", "s", "", "secret key to encrypt the payload")
-	encryptionCmd.MarkPersistentFlagRequired("secret-key")
+	encryptionCmd.Flags().StringP("secret-key", "s", "", "secret key to encrypt the payload")
+	encryptionCmd.MarkFlagRequired("secret-key")
 
-	encryptionCmd.PersistentFlags().StringP("public-key", "k", "", "public key to encrypt the payload")
-	encryptionCmd.MarkPersistentFlagRequired("public-key")
+	encryptionCmd.Flags().StringP("public-key", "k", "", "public key to encrypt the payload")
+	encryptionCmd.MarkFlagRequired("public-key")
 
-	encryptionCmd.PersistentFlags().BoolP("json", "", false, "output in json format")
+	encryptionCmd.Flags().BoolP("json", "", false, "output in json format")
+}
+
+func outputResultForEncrypt(apiEncryptionKey, encryptedPayload string, jsonFlag bool) {
+	if jsonFlag {
+		enc := json.NewEncoder(os.Stdout)
+		// Emit without extra allocations by struct literal
+		_ = enc.Encode(EncryptCmdOutput{ApiEncryptionKey: apiEncryptionKey, EncryptedPayload: encryptedPayload})
+	} else {
+		io.WriteString(os.Stdout, "Encrypted Payload: "+" "+encryptedPayload+"\n")
+		io.WriteString(os.Stdout, "API Encryption Key: "+" "+apiEncryptionKey+"\n")
+	}
 }
