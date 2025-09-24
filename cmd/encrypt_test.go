@@ -116,6 +116,9 @@ func TestEncryptCommand_Success_JSON(t *testing.T) {
 	if strings.Count(got.EncryptedPayload, ".") != 2 {
 		t.Fatalf("encrypted_payload format invalid, expected three segments: %s", got.EncryptedPayload)
 	}
+	if got.Latency == "" {
+		t.Fatalf("expected latency_us to be present")
+	}
 }
 
 func TestEncryptCommand_MissingFlags(t *testing.T) {

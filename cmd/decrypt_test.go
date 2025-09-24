@@ -39,6 +39,9 @@ func TestDecryptCommand_Success_JSON(t *testing.T) {
 	if got.DecryptedPayload != original {
 		t.Fatalf("unexpected decrypted payload: got %q want %q", got.DecryptedPayload, original)
 	}
+	if got.Latency == "" {
+		t.Fatalf("expected latency_us to be present")
+	}
 }
 
 func TestDecryptCommand_MissingFlags(t *testing.T) {
